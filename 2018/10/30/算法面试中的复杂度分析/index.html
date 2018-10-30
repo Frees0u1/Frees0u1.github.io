@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,算法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="例子： 有一个字符串数组，首先将数组中每一个字符串按照字母序排序，之后再将整个字符串按照字典序排序。整个操作的时间复杂度？ 答： 假设最长的字符串长度是s，数组中有n个字符串。对每个字符串进行排序: slogs， 共有n个，所以 nslog(s)所有的字符串进行排序：O(s*nlog(n)) //对字符串进行排序，每一次比较最多为s ==&amp;gt; O(n  slogs) + O(s  nlogn)">
+<meta name="keywords" content="面试,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法面试中的复杂度分析">
+<meta property="og:url" content="http://yoursite.com/2018/10/30/算法面试中的复杂度分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="例子： 有一个字符串数组，首先将数组中每一个字符串按照字母序排序，之后再将整个字符串按照字典序排序。整个操作的时间复杂度？ 答： 假设最长的字符串长度是s，数组中有n个字符串。对每个字符串进行排序: slogs， 共有n个，所以 nslog(s)所有的字符串进行排序：O(s*nlog(n)) //对字符串进行排序，每一次比较最多为s ==&amp;gt; O(n  slogs) + O(s  nlogn)">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-30T08:11:51.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法面试中的复杂度分析">
+<meta name="twitter:description" content="例子： 有一个字符串数组，首先将数组中每一个字符串按照字母序排序，之后再将整个字符串按照字典序排序。整个操作的时间复杂度？ 答： 假设最长的字符串长度是s，数组中有n个字符串。对每个字符串进行排序: slogs， 共有n个，所以 nslog(s)所有的字符串进行排序：O(s*nlog(n)) //对字符串进行排序，每一次比较最多为s ==&amp;gt; O(n  slogs) + O(s  nlogn)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/30/算法面试中的复杂度分析/">
+
+
+
+
+
+  <title>算法面试中的复杂度分析 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/算法面试中的复杂度分析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法面试中的复杂度分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-30T16:10:11+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/修炼之道/" itemprop="url" rel="index">
+                    <span itemprop="name">修炼之道</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>例子： 有一个字符串数组，首先将数组中每一个字符串按照字母序排序，之后再将整个字符串按照字典序排序。整个操作的时间复杂度？</p>
+<p>答： 假设最长的字符串长度是s，数组中有n个字符串。<br>对每个字符串进行排序: slogs， 共有n个，所以 n<em>s</em>log(s)<br>所有的字符串进行排序：O(s*nlog(n)) //对字符串进行排序，每一次比较最多为s</p>
+<p>==&gt; O(n <em> slogs) + O(s </em> nlogn) = O(s<em>n</em>(logn + logs))</p>
+<p><strong>算法复杂度有些情况下是和用例相关的</strong></p>
+<h2 id="对数据规模有一个概念-—-封底估算"><a href="#对数据规模有一个概念-—-封底估算" class="headerlink" title="对数据规模有一个概念 — 封底估算"></a>对数据规模有一个概念 — 封底估算</h2><p>用下面的一个程序进行测试：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= <span class="number">9</span>; x++)&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="built_in">pow</span>(<span class="number">10</span>, x);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">clock_t</span> startTime = clock();</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		sum += i;</span><br><span class="line">	<span class="keyword">clock_t</span>  endTime = clock();</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"10^"</span> &lt;&lt; x &lt;&lt; <span class="string">" : "</span>&lt;&lt; <span class="keyword">double</span>(endTime - startTime)/CLOCKS_PER_SEC &lt;&lt; <span class="string">" s"</span>&lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是一个O(n)的算法在本机4核i7的机器跑出来结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">10^1 : 0 s</span><br><span class="line">10^2 : 0 s</span><br><span class="line">10^3 : 0 s</span><br><span class="line">10^4 : 0 s</span><br><span class="line">10^5 : 0 s</span><br><span class="line">10^6 : 0 s</span><br><span class="line">10^7 : 0.03125 s</span><br><span class="line">10^8 : 0.25 s</span><br><span class="line">10^9 : 2.4375 s</span><br></pre></td></tr></table></figure></p>
+<p>也就是说，如果程序要求在1s内跑出结果，数据规模最好不要超过10^8,不要达到10^9，也就是说：<br>O(n^2): 大约可处理10^4级别的数据<br>O(nlogn): 大约可处理10^7级别数据<br>O(n): 大约可处理10^8级别数据</p>
+<h2 id="常见的复杂度分析"><a href="#常见的复杂度分析" class="headerlink" title="常见的复杂度分析"></a>常见的复杂度分析</h2><h3 id="O-1"><a href="#O-1" class="headerlink" title="$O(1)$"></a>$O(1)$</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span>&amp; b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> tmp = a; a = b; b = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="O-n-—-常系数很可能不为1"><a href="#O-n-—-常系数很可能不为1" class="headerlink" title="$O(n)$ —- 常系数很可能不为1"></a>$O(n)$ —- 常系数很可能不为1</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		sum += n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="O-n-2"><a href="#O-n-2" class="headerlink" title="$O(n^{2})$"></a>$O(n^{2})$</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 选择排序</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">	<span class="keyword">int</span> minIndex = i;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(arr[j] &lt; arr[minIndex]) &#123;</span><br><span class="line">			minIndex = j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">swap(arr[i], arr[minIndex]);</span><br></pre></td></tr></table></figure>
+<h3 id="O-logn"><a href="#O-logn" class="headerlink" title="$O(logn)$"></a>$O(logn)$</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lower_bound</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binSearch</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(lo &lt; hi) &#123;</span><br><span class="line">		<span class="keyword">int</span> mid = lo + (hi - lo) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(nums[mid] &lt; key) &#123;</span><br><span class="line">			lo = mid;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			hi = mid;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> lo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>考虑下面这个例子：n经过几次除以10的操作后，等于0？ 答案是log_{10}n</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Warnning!! this code is buggy</span></span><br><span class="line"><span class="comment">// 需要考虑各种情况</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">intToString</span> <span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">while</span>(num) &#123;</span><br><span class="line">		s += <span class="string">'0'</span> + num % <span class="number">10</span>;</span><br><span class="line">		num /= <span class="number">10</span></span><br><span class="line">	&#125;</span><br><span class="line">	reverse(s);</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以2为底和以10为底的对数，在数量级上没有区别。（只是一个线性关系）</p>
+<h3 id="O-nlogn"><a href="#O-nlogn" class="headerlink" title="$O(nlogn)$"></a>$O(nlogn)$</h3><p>虽然下面的代码也是两重循环，但是复杂度却是$O(nlogn)$的，因为外层循环是指数级增加的（每次乘以2）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt; n; sz += sz) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="复杂度实验"><a href="#复杂度实验" class="headerlink" title="复杂度实验"></a>复杂度实验</h2><blockquote>
+<p>我明明写的是$O(nlogn)$的算法，面试官却说我是$O(n^{2})$的？</p>
+</blockquote>
+<p>可以自己进行验证，看能够处理什么级别的数据规模，参考封底估算。<br>实验，观察趋势。比如每次将数据规模提高两倍，观察时间变化.</p>
+<h2 id="递归算法的复杂度分析"><a href="#递归算法的复杂度分析" class="headerlink" title="递归算法的复杂度分析"></a>递归算法的复杂度分析</h2><p>对于单次递归调用，复杂度一般为$O(T*depth)$, 写递推表达式进行推导。</p>
+<p>如下面的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">pow</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	assert(n &gt;= <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">double</span> t = <span class="built_in">pow</span>(x, n/ <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(n %<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> x*t*t;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> t*t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>递归深度$depth = logn, T = 1$,因此复杂度为$O(logn)$。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//递归基 here</span></span><br><span class="line">	<span class="keyword">return</span> f(n - <span class="number">1</span>) + f(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多次递归调用,递归深度$depth = n, 每次操作2$，可以推导出算法复杂度为指数级$O(2^n)$</p>
+<script type="math/tex; mode=display">\begin{equation}\begin{split}\\f(n) &= 2f(n-1)\\&= 4(n-2)\\&= 8f(n-3)\\&\cdots\\&= 2^{n}f(1)\\&= O(2^{n})\\\end{split}\end{equation} \tag{1}</script><p>简单不严谨地分析快速排序的复杂度：</p>
+<p>快速排序的每一次partition操作可构造出这么一个位置，即左边的所有值都比轴点小，右边的都比轴点大，因此$f(n) = 2*f(n/2) + f(partition)$ 而partition操作只需要做一次循环，所以是一个O(n),所以</p>
+<script type="math/tex; mode=display">\begin{split}\\f(n) &= 2f(n/2) + O(n)\\&= 4f(n/4) + O(n) + 2*O(n/2)\\&= 8f(n/8) + O(n) + 2*(n/2) + 4*(n/4)\\&\cdots\\&= 2^{\log_{2}n} * f(1) + \underbrace{ O(n) + O(n) +\cdots+ O(n) }_{k = \log_{2}n个}\\&= n + O(n*\log_{2}n)\\&= O(n * \log_{2}n)\\\end{split} \tag{2}</script><p>当然，严谨的分析还需要引入概率（随机分布）。这里只是简单不严谨的推导。</p>
+<h2 id="均摊复杂度分析-Amoritzed-Time"><a href="#均摊复杂度分析-Amoritzed-Time" class="headerlink" title="均摊复杂度分析 Amoritzed Time"></a>均摊复杂度分析 Amoritzed Time</h2><p><strong>典型例子：动态数组(vector)</strong><br>每一次动态扩容(resize())，需要开辟一个新的空间，然后进行一一赋值，这样一个操作的复杂度是$O(n)$那么问题来了：vector push_back的平均复杂度是多少？</p>
+<p>假设当前数组容量为n,从空到满，每一次操作的消耗是$O(1)​$. 如果此时再来一个元素，就需要resize, 那么最后这一次操作耗费为$O(n)​$, 那么平均来看，过去n+1次操作的总花费为</p>
+<script type="math/tex; mode=display">\underbrace{ O(1) + O(1) +\cdots+ O(1) }_{n个} + O(n) = O(2n)</script><p>那么分摊来看每一次<code>push_back</code>的操作花费为$O(\frac{2n}{n+1}) = O(2) = O(1)$</p>
+<p>那么问题又来了，如果<code>pop_back</code>的时候，发现size为当前capacity的1/2就resize,那么时间复杂度是多少？<br>假设当前数组容量为2n,从满到一半，每一次操作的消耗是$O(1)$,如果此时再<code>pop_back</code>,需要再消耗的时间为$O(2<em>n)$, 那么这个视角下的均摊分析还是为级别O(1)<br>可是换一种奇怪的情况：数组满后，resize为两倍,需要O(n)；此时又要删除，那么又到达临界点了，此时要resize缩容，又需要$O(n)$,那么在这种退化情况下，单次操作复杂度退化到了$O(n)$, 这种情况也被称之为<em>*复杂度的振荡</em></em></p>
+<p>正确的做法是什么呢？<code>pop_back</code>要等到size为capacity的1/4再resize缩容。</p>
+<h2 id="面试被问过的复杂度分析"><a href="#面试被问过的复杂度分析" class="headerlink" title="面试被问过的复杂度分析"></a>面试被问过的复杂度分析</h2><h3 id="假设现在的动态数组-哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？"><a href="#假设现在的动态数组-哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？" class="headerlink" title="假设现在的动态数组/哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？"></a>假设现在的动态数组/哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？</h3><p>最后一次复制：n/2参与</p>
+<p>倒数第二次复制：n/4参与</p>
+<p>倒数第三次复制：n/8参与</p>
+<p>…</p>
+<p>第二次：2个参与</p>
+<p>第一次：1个参与</p>
+<script type="math/tex; mode=display">\therefore S(n)  = \frac{n}{2} + \frac{n}{4} + \frac{n}{8} +\cdots+4+2+1 \tag{3}</script><script type="math/tex; mode=display">\Rightarrow 2S(n) = n + \frac{n}{2} + \frac{n}{4} + \frac{n}{8} +\cdots+4+2 \tag{4}</script><p>很容易就可以得出</p>
+<script type="math/tex; mode=display">S(n) = n - 1 \tag{*}</script><p>也就是说，每一次插入新元素的复杂度能够分摊为$O(1)$的级别</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对数据规模有一个概念-—-封底估算"><span class="nav-number">1.</span> <span class="nav-text">对数据规模有一个概念 — 封底估算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的复杂度分析"><span class="nav-number">2.</span> <span class="nav-text">常见的复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#O-1"><span class="nav-number">2.1.</span> <span class="nav-text">$O(1)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-n-—-常系数很可能不为1"><span class="nav-number">2.2.</span> <span class="nav-text">$O(n)$ —- 常系数很可能不为1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-n-2"><span class="nav-number">2.3.</span> <span class="nav-text">$O(n^{2})$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-logn"><span class="nav-number">2.4.</span> <span class="nav-text">$O(logn)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-nlogn"><span class="nav-number">2.5.</span> <span class="nav-text">$O(nlogn)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂度实验"><span class="nav-number">3.</span> <span class="nav-text">复杂度实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归算法的复杂度分析"><span class="nav-number">4.</span> <span class="nav-text">递归算法的复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#均摊复杂度分析-Amoritzed-Time"><span class="nav-number">5.</span> <span class="nav-text">均摊复杂度分析 Amoritzed Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试被问过的复杂度分析"><span class="nav-number">6.</span> <span class="nav-text">面试被问过的复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#假设现在的动态数组-哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？"><span class="nav-number">6.1.</span> <span class="nav-text">假设现在的动态数组/哈希表有n个元素，vector的初始大小为1，问从开始到现在，共有多少次复制操作？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
