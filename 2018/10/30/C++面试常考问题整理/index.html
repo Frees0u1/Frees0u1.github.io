@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,面试,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基础问题1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？多态简单来说就是“一个接口，多种方法”，程序在运行时才决定具体调用哪一个函数，因此程序运行有不同的状态，称为多态、语法上通过虚函数来实现。虚函数即声明时加了vitual关键字的函数，告知编译器不要在编译阶段将函数声明静态绑定到某个具体的函数实现上去，这样子类可以重写(override)父类的方法。底层实">
+<meta name="keywords" content="C++,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++面试常考问题整理">
+<meta property="og:url" content="http://yoursite.com/2018/10/30/C++面试常考问题整理/index.html">
+<meta property="og:site_name" content="Frees0u1">
+<meta property="og:description" content="基础问题1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？多态简单来说就是“一个接口，多种方法”，程序在运行时才决定具体调用哪一个函数，因此程序运行有不同的状态，称为多态、语法上通过虚函数来实现。虚函数即声明时加了vitual关键字的函数，告知编译器不要在编译阶段将函数声明静态绑定到某个具体的函数实现上去，这样子类可以重写(override)父类的方法。底层实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-30T12:14:29.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++面试常考问题整理">
+<meta name="twitter:description" content="基础问题1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？多态简单来说就是“一个接口，多种方法”，程序在运行时才决定具体调用哪一个函数，因此程序运行有不同的状态，称为多态、语法上通过虚函数来实现。虚函数即声明时加了vitual关键字的函数，告知编译器不要在编译阶段将函数声明静态绑定到某个具体的函数实现上去，这样子类可以重写(override)父类的方法。底层实">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/30/C++面试常考问题整理/">
+
+
+
+
+
+  <title>C++面试常考问题整理 | Frees0u1</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Frees0u1</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">谁谓河广,一苇杭之</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/C++面试常考问题整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杭河苇 | Jayson">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frees0u1">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++面试常考问题整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T19:39:51+08:00">
+                2018-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/油腻校招/" itemprop="url" rel="index">
+                    <span itemprop="name">油腻校招</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h2><h3 id="1-多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？"><a href="#1-多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？" class="headerlink" title="1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？"></a>1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？</h3><p>多态简单来说就是“一个接口，多种方法”，程序在运行时才决定具体调用哪一个函数，因此程序运行有不同的状态，称为多态、语法上通过虚函数来实现。<br>虚函数即声明时加了vitual关键字的函数，告知编译器不要在编译阶段将函数声明静态绑定到某个具体的函数实现上去，这样子类可以重写(override)父类的方法。底层实现上通过虚表，即每个多态类中有一个虚表，存储着当前类各个函数的入口地址，每个对象都有一个指向当前类虚表的指针。虚表在编译阶段就构造完毕，在一个多态类对象构造时构造函数为对象的虚指针赋值，当调用其某个虚函数时，通过虚指针vptr找到具体所调用的虚函数的入口地址，进而调用具体的虚函数。</p>
+<p>进阶版本：</p>
+<ol>
+<li>析构函数可以是虚函数吗？ 可以，子类父类不同的析构方法，且最好都是虚的</li>
+<li>构造函数可以是虚函数吗？ 不可以</li>
+<li>内联函数可以是虚函数吗？ 不可以，内联函数需要在编译时处理并绑定</li>
+<li>静态函数可以是虚函数吗？不可以，静态函数没有this指针，而vptr和vtable依靠this指针来访问</li>
+<li>构造函数可以调用虚函数吗？不可以. 调用构造函数后如果有多层继承关系，实际上会从最顶层的基类从上往下构造，如果此时调用了一个子类的虚函数，其尚未被构造出来，这样的函数行为就是完全不可预测的。</li>
+</ol>
+<p><strong>什么是虚继承？为什么要使用它</strong></p>
+<ul>
+<li>菱形继承导致的二义性的问题</li>
+</ul>
+<h3 id="2-指针和引用的区别"><a href="#2-指针和引用的区别" class="headerlink" title="2. 指针和引用的区别"></a>2. 指针和引用的区别</h3><ul>
+<li>指针是一个变量(有内存)，引用是一个别名（不分配内存）</li>
+<li>指针可以爱运行时改变其所指向的值，引用一旦和某个对象绑定就不能再改变</li>
+<li>引用没有const， 指针有const</li>
+<li>在参数传递时，引用会做类型检查，而指针不会</li>
+<li>引用不能为空，指针可以为空</li>
+</ul>
+<h3 id="3-new和malloc的区别"><a href="#3-new和malloc的区别" class="headerlink" title="3.new和malloc的区别"></a>3.new和malloc的区别</h3><ul>
+<li>new/delete会调用构造/析构函数，malloc只分配空间</li>
+<li>new申请内存无需指定内存块的大小，malloc则必须分配空间</li>
+<li>new返回对象类型指针</li>
+</ul>
+<p><strong>new步骤</strong></p>
+<ol>
+<li>调用operator函数，分配内存</li>
+<li>调用相关的构造函数构造对象</li>
+<li>返回该对象指针</li>
+</ol>
+<p>例如：无法new一个抽象类，但是可以malloc出一块与sizeof(抽象类)的空间大小</p>
+<h3 id="4-vector实现原理，list-map-set，unordered-map-unordered-set底层的数据结构？"><a href="#4-vector实现原理，list-map-set，unordered-map-unordered-set底层的数据结构？" class="headerlink" title="4.vector实现原理，list, map, set，unordered_map unordered_set底层的数据结构？"></a>4.vector实现原理，list, map, set，unordered_map unordered_set底层的数据结构？</h3><p>即一块动态数组，如果数组长度不足以存放数据就会动态扩容，其过程为重新new一块更大的空间(教科书上写2倍，实际不同编译器不一样，如1.5等)，再将原有元素一一拷贝过去，同时添上新增的元素</p>
+<ul>
+<li>list: 双向链表</li>
+<li>map/set: 红黑树</li>
+<li>unordered_map/unordered_set: 哈希表</li>
+<li>deque   底层数据结构为一个中央控制器和多个缓冲区，详细见STL源码剖析P146，支持首尾（中间不能）快速增删，也支持随机访问 </li>
+<li>stack/queue   底层一般用list或deque实现，封闭头部/尾部即可，不用vector的原因应该是容量大小有限制，扩容耗时</li>
+<li>priority_queue 的底层数据结构一般为vector为底层容器，堆heap为处理规则来管理底层容器实现</li>
+</ul>
+<h3 id="5-static有哪些作用？-C语言本来就有的，c-中有的"><a href="#5-static有哪些作用？-C语言本来就有的，c-中有的" class="headerlink" title="5.static有哪些作用？(C语言本来就有的，c++中有的)"></a>5.static有哪些作用？(C语言本来就有的，c++中有的)</h3><p>C:</p>
+<ol>
+<li>静态变量，存储在静态变量区的变量，生存期是整个程序运行周期，并且只能再本文件(.c)中访问，同工程的其他.c文件无法访问</li>
+<li>函数内部声明的static变量，可以作为不同线程中的共享变量，只在执行线程第一次到达时进行初始化。（不仅限于线程，单线程多次调用某函数同理）    </li>
+</ol>
+<p>C++:</p>
+<ol>
+<li>静态类成员，所有同类型的对象唯一共享</li>
+<li>静态成员函数，与任何对象都无瓜葛，不访问任何non-static member</li>
+</ol>
+<h3 id="6-const关键字有哪些作用"><a href="#6-const关键字有哪些作用" class="headerlink" title="6.const关键字有哪些作用"></a>6.const关键字有哪些作用</h3><ol>
+<li>修饰函数参数： 函数形参声明加const保护某些值在操作过程中不会改变</li>
+<li>修饰成员函数： 类的成员函数加上const限定可以声明此函数不会更改类对象的内容</li>
+<li>修饰普通变量： 该变量值不可更改，比如代替宏定义，有一些函数如节省空间、给常量指定具体类型等</li>
+<li>修饰返回值，表明返回的数据是不可修改的</li>
+<li>修饰指针： <ul>
+<li>char* const ptr; //指针本身是常量不可变</li>
+<li>const char* ptr; //指针所指向的内容是常量不可变</li>
+<li>const char* const ptr //二者均不可变</li>
+</ul>
+</li>
+</ol>
+<h4 id="衍生问题"><a href="#衍生问题" class="headerlink" title="衍生问题"></a>衍生问题</h4><ol>
+<li><strong>成员函数能否同时修饰为static和const</strong>成员变量是可以的<ul>
+<li>否，static不依赖于任何对象，而const成员函数强调不修改对象的成员，这两者针对的点不同，不能同时修饰</li>
+</ul>
+</li>
+<li><strong>static函数能否调用非static函数呢？</strong><ul>
+<li>否， static函数操作的整个类的，不依赖于某个对象，非static函数改变的是某个对象的成员变量，static不可以调用非static函数</li>
+</ul>
+</li>
+</ol>
+<h3 id="7-智能指针的原理是什么？-C-11有哪些智能指针？-下文对智能指针有更详细的分析"><a href="#7-智能指针的原理是什么？-C-11有哪些智能指针？-下文对智能指针有更详细的分析" class="headerlink" title="7.智能指针的原理是什么？ C++11有哪些智能指针？(下文对智能指针有更详细的分析)"></a>7.智能指针的原理是什么？ C++11有哪些智能指针？(下文对智能指针有更详细的分析)</h3><ul>
+<li>主要用来处理忘记delete或者程序运行中抛异常无法执行到delete等导致的内存泄露问题<br>简单来说即为将指针类型封装为对象，当其“彻底”消亡时将调用析构函数，从而自动地将其从堆中分配的内存释放掉，而不用去关心内存泄露的问题。</li>
+<li>两种智能指针 shared_ptr 和 unique_ptr, 还有一个名为weak_ptr的伴随类</li>
+<li>shared_ptr, 共享所有权，允许多个指针指向同一个对象，其内部有一个关联的引用计数，用来记录有多少个其他的shared_ptr指向相同的对象，当引用计数为0时将调用析构函数释放对应空间</li>
+<li>unique_ptr遵循独占语义，在任何时间点，资源只能唯一地被一个unique_ptr占有，当其离开作用域，所包含的资源被释放。</li>
+<li>weak_ptr解决shared_ptr循环引用时的bug</li>
+</ul>
+<blockquote>
+<p><strong>场景:</strong></p>
+<ol>
+<li>A类中有shared_ptr指向B, B类中有shared_ptr指向A类型</li>
+<li>main中new了两个堆对象A和B,分别用两根指针来存（记sA, sB），两个对象的内部指针互指，此时两块内存的引用计数均为2（均有两根指针指向它）</li>
+<li>当main结束后，sA离开，A内存引用计数降为1；sB离开，B内存引用计数降为1；因为没有降为0，资源不释放</li>
+</ol>
+</blockquote>
+<ul>
+<li>weak_ptr是一种不控制所指向对象生存期的智能指针，他指向一个由shared_ptr管理的对象，且不会改变其引用计数。在刚才的场景中，将类内的指针改为weak_ptr即可解决</li>
+</ul>
+<h3 id="8-C-几种强制类型转换"><a href="#8-C-几种强制类型转换" class="headerlink" title="8.C++几种强制类型转换"></a>8.C++几种强制类型转换</h3><ol>
+<li>static_cast: 内置基本数据类型之间的相互转换</li>
+<li>const_cast:　把表达式转化成常量，或者把const属性去掉</li>
+<li>reinterpret_cast: 转化任何内置的数据类型为其他任何的数据类型，也可以转化指针类型为其他类型，甚至可以转化内置的数据类型为指针，无需考虑类型安全或者常量的情形。不到万不得已绝对不用</li>
+<li>dynamic_cast: 运行时类型转化，只能转换多态类的指针和引用，比如基类型与派生类类型指针的相互转换，成功返回转换成功的指针，失败返回NULL或者抛异常</li>
+</ol>
+<h3 id="9-栈上的对象与堆上的对象有什么不同"><a href="#9-栈上的对象与堆上的对象有什么不同" class="headerlink" title="9.栈上的对象与堆上的对象有什么不同"></a>9.栈上的对象与堆上的对象有什么不同</h3><p>生命期不同，栈上的对象在定义对象时即在栈空间生成，离开作用域（右大括号）后即自动调用析构函数销毁<br>堆上的空间需要进行动态内存分配（new）且需要手动释放(delete)，否则会一直存在，造成内存泄露</p>
+<h3 id="10-const和define有什么不同"><a href="#10-const和define有什么不同" class="headerlink" title="10.const和define有什么不同"></a>10.const和define有什么不同</h3><p>const常量可以给常量加上类型，从而在编译阶段可以进行类型检查。<br>const在编译运行阶段使用，define宏在预处理阶段展开<br>const可以节省空间，避免不必要的内存分配<br>如#define PI = 3.14<br>const double pi = 3.14<br>double i = Pi; //此时为i分配内存之后不再分配<br>double I = PI; //编译期间进行宏替换，分配内存，之后每次有宏定义需要展开的地方都需要分配内存</p>
+<h3 id="11-了解C-11的哪些新特性？"><a href="#11-了解C-11的哪些新特性？" class="headerlink" title="11.了解C++11的哪些新特性？"></a>11.了解C++11的哪些新特性？</h3><ol>
+<li>易用性：nullptr / auto / 范围for循环 / 初始化列表 / override和final / lambda表达式</li>
+<li>右值引用和移动语义</li>
+<li>智能指针</li>
+<li>标准库扩充，新增array/forward_list/两个unordered/tuple新容器，语言级线程支持,thread/mutex/unique_lock等</li>
+</ol>
+<h3 id="12-C-写一个线程安全的单例模式"><a href="#12-C-写一个线程安全的单例模式" class="headerlink" title="12.C++写一个线程安全的单例模式"></a>12.C++写一个线程安全的单例模式</h3><ol>
+<li><p>饿汉实现（自身线程安全）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> singleton* <span class="title">instance</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    singleton()&#123;&#125;</span><br><span class="line">    <span class="keyword">static</span> singleton* p;</span><br><span class="line">&#125;</span><br><span class="line">singleton* singleton::p = <span class="keyword">new</span> singleton;</span><br><span class="line">singleton* singleton::instance()&#123;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"><span class="number">2.</span> 懒汉实现（加锁）</span><br><span class="line">```cpp</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">pthread_mutex_t</span> mutex;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> singleton* <span class="title">instance</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    singleton()&#123;</span><br><span class="line">        pthread_mutex_init(&amp;mutex); <span class="comment">//初始化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> singleton* p;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> singleton* <span class="title">instance</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> singleton::mutex;</span><br><span class="line">singleton* singleton::p = <span class="literal">NULL</span>;</span><br><span class="line">singleton* singleton::instance()&#123;</span><br><span class="line">    <span class="keyword">if</span>(p == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;mutex); <span class="comment">//加锁</span></span><br><span class="line">        <span class="keyword">if</span>(p == <span class="literal">NULL</span>)</span><br><span class="line">            p = <span class="keyword">new</span> singleton();</span><br><span class="line">        pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>懒汉实现（内部静态变量）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> singleton&amp; <span class="title">instance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">static</span> singleton obj; <span class="comment">//隐含初始化</span></span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    singleton()&#123;&#125;</span><br><span class="line">    singleton(<span class="keyword">const</span> singleton &amp;);</span><br><span class="line">    singleton&amp; operater=(<span class="keyword">const</span> singleton &amp;)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>工程实践写法(pthread_once)<br>POSIX变量只进行一次初始化可以使用pthread_once来完成, 其能够保只被初始化一次,线程安全则由pthread库来保证.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Singleton&amp; <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        pthread_once(&amp;ponce_, &amp;Singleton::init());</span><br><span class="line">        <span class="keyword">return</span> *p;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Singleton();</span><br><span class="line">    ~Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        p_ = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">pthread_once_t</span> ponce_;</span><br><span class="line">    <span class="keyword">static</span> Singleton* p_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="13-成员函数可以同时被static和const修饰吗？"><a href="#13-成员函数可以同时被static和const修饰吗？" class="headerlink" title="13.成员函数可以同时被static和const修饰吗？"></a>13.成员函数可以同时被static和const修饰吗？</h3><p>NO<br>C++编译器在实现const的成员函数的时候为了确保该函数不能修改类的中参数的值，会在函数中添加一个隐式的参数const this*。但当一个成员为static的时候，该函数是没有this指针的。也就是说此时const的用法和static是冲突的。</p>
+<h2 id="进阶问题"><a href="#进阶问题" class="headerlink" title="进阶问题"></a>进阶问题</h2><h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><h4 id="请讲一下智能指针原理，并实现一个简单的智能指针"><a href="#请讲一下智能指针原理，并实现一个简单的智能指针" class="headerlink" title="请讲一下智能指针原理，并实现一个简单的智能指针"></a>请讲一下智能指针原理，并实现一个简单的智能指针</h4><ul>
+<li>智能指针其实不是一个指针。它是<strong>一个用来帮助我们管理指针的类</strong>，维护其生命周期的类。有了它，妈妈再也不用担心我的内存泄露啦！</li>
+<li>需要解决的问题：<ul>
+<li>怎么释放内存？</li>
+<li>什么时候释放内存？</li>
+</ul>
+</li>
+<li>释放内存方法一：同归于尽！ auto_ptr</li>
+<li><p>释放内存方法二：引用计数！</p>
+<ul>
+<li>引用计数：对一个指针所指向的内存，目前有多少个对象在使用它</li>
+<li>当引用计数为0的时候，删除对象</li>
+<li>多个智能指针共享同v 一个引用计数类</li>
+<li>在进行赋值等操作时，动态地维护引用计数</li>
+</ul>
+</li>
+<li><p>实现，有两个问题需要解决</p>
+<ol>
+<li>如何对指针引用的内存进行计数</li>
+<li>如何改进SmartPointer类使得它能够动态地维护引用计数</li>
+</ol>
+</li>
+</ul>
+<h4 id="Counter类实现"><a href="#Counter类实现" class="headerlink" title="Counter类实现"></a>Counter类实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> &#123;</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">SmartPointPro</span>;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Counter()&#123;</span><br><span class="line">        ptr = <span class="literal">NULL</span>;</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Counter(Object* p)&#123;</span><br><span class="line">        ptr = p;</span><br><span class="line">        cnt = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Counter()&#123;</span><br><span class="line">        <span class="keyword">delete</span> ptr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Object* ptr;</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="SmartPointPro类-未考虑线程安全"><a href="#SmartPointPro类-未考虑线程安全" class="headerlink" title="SmartPointPro类 未考虑线程安全"></a>SmartPointPro类 未考虑线程安全</h4><ul>
+<li>如何动态维护引用计数？引用计数改变发生在如下时刻：<ol>
+<li>调用构造函数时： SmartPointer p(new Object());</li>
+<li>赋值构造函数时： SmartPointer p(const SmartPointer &amp;p);</li>
+<li>赋值时：SmartPointer p1(new Object()); SmartPointer p2 = p1;</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmartPointPro</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    SmartPointerPro(Object* p)&#123;</span><br><span class="line">        ptr_counter = <span class="keyword">new</span> Counter(p);</span><br><span class="line">    &#125;</span><br><span class="line">    SmartPointerPro(<span class="keyword">const</span> SmartPointerPro &amp;sp)&#123;</span><br><span class="line">        ptr_counter = sp.ptr_counter;</span><br><span class="line">        ++ptr_counter-&gt;cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    SmartPointerPro&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> SmartPointerPro &amp;sp)&#123;</span><br><span class="line">        ++sp.ptr_counter-&gt;cnt;</span><br><span class="line">        --ptr_counter.cnt;</span><br><span class="line">        <span class="keyword">if</span>(ptr_counter.cnt == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">delete</span> ptr_counter;</span><br><span class="line">        ptr_counter = sp.ptr_counter;</span><br><span class="line">    &#125;</span><br><span class="line">    ~SmartPointerPro()&#123;</span><br><span class="line">        --ptr_counter-&gt;cnt;</span><br><span class="line">        <span class="keyword">if</span>(ptr_counter.cnt == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">delete</span> ptr_counter;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Counter *ptr_counter;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="怎么样获取智能指针所包装的指针呢？"><a href="#怎么样获取智能指针所包装的指针呢？" class="headerlink" title="怎么样获取智能指针所包装的指针呢？"></a>怎么样获取智能指针所包装的指针呢？</h4><ul>
+<li>method1: 写GetPtr(), GetObject()等函数</li>
+<li>method2: 重载指针的操作符，-&gt;/*</li>
+</ul>
+<h4 id="STL中的四种智能指针"><a href="#STL中的四种智能指针" class="headerlink" title="STL中的四种智能指针"></a>STL中的四种智能指针</h4><ul>
+<li>auto_ptr: 弱版本的智能指针，赋值会有问题</li>
+<li>shared_ptr: 引用计数版本</li>
+<li>weak_ptr: 解决循环引用的问题</li>
+<li>unique_ptr: auto_ptr的改进版本,不允许直接赋值，可以移动</li>
+</ul>
+<h3 id="struct对齐问题"><a href="#struct对齐问题" class="headerlink" title="struct对齐问题"></a>struct对齐问题</h3><ul>
+<li><p>笔试、面试中的超高频问题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Q</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> num1;</span><br><span class="line">    <span class="keyword">double</span> num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>问上述代码中sizeof(Q)为多少？  16</p>
+</li>
+<li>实际上这是考察struct结构地址对齐的问题</li>
+<li>struct的对其系数和以下几个关系有关<ol>
+<li>元素大小</li>
+<li>元素顺序</li>
+<li>#pargma pack参数</li>
+</ol>
+</li>
+</ul>
+<h4 id="对齐规则"><a href="#对齐规则" class="headerlink" title="对齐规则"></a>对齐规则</h4><ul>
+<li>struct中成员在内存中按顺序排列，在没有#pargma pack(n)的情况下，各个成员的对齐系数为自己的长度</li>
+<li>在有#pargma pack(n)的情况下，各个成员的对齐系数为min(自己的长度，n)</li>
+<li>struct整体的对齐系数为对齐系数中最大的</li>
+<li>依次排列时要满足地址对对齐系数取模为0</li>
+</ul>
+<h3 id="C-虚函数相关问题"><a href="#C-虚函数相关问题" class="headerlink" title="C++虚函数相关问题"></a>C++虚函数相关问题</h3><h4 id="C-中为什么要使用虚函数"><a href="#C-中为什么要使用虚函数" class="headerlink" title="C++中为什么要使用虚函数"></a>C++中为什么要使用虚函数</h4><ul>
+<li>Base类和派生类都有相同的函数接口,但是考虑到不同的派生类的特性,可以用虚函数来使用不同的实现</li>
+<li>虚函数实现动态绑定,提高程序的灵活性</li>
+<li>实现动态绑定的两个条件<ol>
+<li>相应成员函数为虚函数</li>
+<li>使用基类对象的<strong>引用</strong>或<strong>指针</strong>进行调用</li>
+</ol>
+</li>
+</ul>
+<h4 id="题目1-请说明C-虚函数的底层实现机制"><a href="#题目1-请说明C-虚函数的底层实现机制" class="headerlink" title="题目1: 请说明C++虚函数的底层实现机制"></a>题目1: 请说明C++虚函数的底层实现机制</h4><p>出现频率: <strong>5星</strong> 题目难度: <strong>4星</strong>  使用范围: <strong>所有公司</strong></p>
+<ul>
+<li><strong>虚函数表</strong>: 一个类的虚函数的地址表,所有对象都是通过它来找到合适的虚函数. 他就是这个类的”四十二章经”</li>
+<li><p><strong>虚函数表指针</strong>: 每个类的对象实例都拥有一个指针指向这张虚函数表(一般在对象实例的最前面),它帮助对象找到这张表的地址,然后就可以遍历其中的函数指针,调用相应的函数</p>
+</li>
+<li><p>注意:<strong>虚函数表一个类有一个,而不是一个对象有一个</strong></p>
+</li>
+<li>子类的虚函数表是子类的,从父类拷贝一份过来,并进行修改. 和父类并不是共享</li>
+<li>那么发生继承覆盖时发生了什么呢?<ol>
+<li>单继承没有覆盖: 拷贝一份父类的虚函数表,然后添上自己的函数</li>
+<li>单继承有覆盖: 拷贝一份父类的虚函数表,有重载的将其替换</li>
+<li>多继承无覆盖: 子类的虚函数被放在了第一个父类中</li>
+<li>多继承有覆盖: 覆盖的部分就修改,三个父类拷贝过来的虚函数表都进行了覆盖</li>
+</ol>
+</li>
+<li>普通函数不进入虚函数表</li>
+<li>C++本身是没有类地址的,虚函数表放在代码段或者数据段的</li>
+<li>如果没有在子类中重载,调用的就还是父类的虚函数实现.</li>
+</ul>
+<h4 id="题目2-为什么需要虚析构函数"><a href="#题目2-为什么需要虚析构函数" class="headerlink" title="题目2:为什么需要虚析构函数?"></a>题目2:为什么需要虚析构函数?</h4><ul>
+<li>若析构函数非虚,用基类指针去new一个派生类对象时,调用delete时,只会析构派生类对象的基类部分</li>
+<li>如果子类有资源需要释放,则析构函数<strong>一定要写成虚函数</strong></li>
+</ul>
+<h4 id="题目3-析构函数一定是虚函数吗"><a href="#题目3-析构函数一定是虚函数吗" class="headerlink" title="题目3:析构函数一定是虚函数吗?"></a>题目3:析构函数一定是虚函数吗?</h4><ul>
+<li>不一定</li>
+<li>在没有资源需要释放,或者final类型的类也不需要</li>
+</ul>
+<h4 id="题目4-访问虚函数和普通函数哪个快"><a href="#题目4-访问虚函数和普通函数哪个快" class="headerlink" title="题目4:访问虚函数和普通函数哪个快?"></a>题目4:访问虚函数和普通函数哪个快?</h4><ul>
+<li>显然是普通函数</li>
+<li>普通函数在编译阶段就确定了,访问时可以直接调到对应的地址执行.</li>
+<li>虚函数需要在虚函数表中查找,有一定的耗时</li>
+<li>此外,由于有虚函数表的存在,因此会有一定的内存占用</li>
+</ul>
+<h4 id="题目5-内联函数-构造函数-静态成员函数可以是虚函数吗"><a href="#题目5-内联函数-构造函数-静态成员函数可以是虚函数吗" class="headerlink" title="题目5:内联函数/构造函数/静态成员函数可以是虚函数吗"></a>题目5:内联函数/构造函数/静态成员函数可以是虚函数吗</h4><ul>
+<li>否 否 否</li>
+<li>内联函数是编译时展开,虚函数是运行时绑定,存在冲突,不能是虚函数</li>
+<li>构造函数,子类在构造过程中,先构造父类,此时还没有生成子类成员,此时无法动态绑定</li>
+<li>静态成员函数不存在this指针</li>
+</ul>
+<h4 id="题目6-构造函数中可以调用虚函数吗"><a href="#题目6-构造函数中可以调用虚函数吗" class="headerlink" title="题目6: 构造函数中可以调用虚函数吗?"></a>题目6: 构造函数中可以调用虚函数吗?</h4><ul>
+<li>不可以. 调用构造函数后如果有多层继承关系，实际上会从最顶层的基类从上往下构造，如果此时调用了一个子类的虚函数，其尚未被构造出来，这样的函数行为就是完全不可预测的。</li>
+</ul>
+<h3 id="C-虚继承相关问题"><a href="#C-虚继承相关问题" class="headerlink" title="C++虚继承相关问题"></a>C++虚继承相关问题</h3><ul>
+<li>解决菱形继承带来的二义性的问题</li>
+<li>中间层继承基类方式为虚继承, virtual public Base</li>
+<li>实现原理和编译器高度相关,VC++实现思路如下:<ul>
+<li>在mid1和mid2对象中添加<strong>虚基类指针</strong>,指向基类对象Base,这样Mid1和Mid2中就会指向共同的基类成员,从而消除了二义性</li>
+</ul>
+</li>
+<li>在开发中应该尽量避免</li>
+</ul>
+<h4 id="C-虚继承中的sizeof"><a href="#C-虚继承中的sizeof" class="headerlink" title="C++虚继承中的sizeof"></a>C++虚继承中的sizeof</h4><ul>
+<li>遇到这样的题,只能说明面试官在耍流氓,因为都是和编译器高度相关的,没有唯一答案</li>
+<li>但是我们要知道类的大小取决于哪些因素:<ol>
+<li>类成员的大小</li>
+<li>虚函数表指针大小(是否和父类共享)</li>
+<li>虚基类指针</li>
+</ol>
+</li>
+</ul>
+<p>先看下面的一段代码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">myfunA</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">myfunB</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> :</span> <span class="keyword">virtual</span> <span class="keyword">public</span> A&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">myfunC</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">D</span>:</span> <span class="keyword">public</span> B, <span class="keyword">public</span> C&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">myfunD</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(A) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(B) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(C) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>(D) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>在VC++下,答案为: 8, 16, 16, 24</li>
+<li><p>在g++ 32位机器下,答案为:  8, 12, 12, 16</p>
+</li>
+<li><p>分析VC++</p>
+<ul>
+<li>对A, int a(<strong>4B</strong>) +  vptr(<strong>4B</strong>) =  8 Bytes</li>
+<li>对B与C, A的内容(<strong>8B</strong>) + vptrOfSelf(<strong>4B</strong>) + 指向Base的虚基类指针(<strong>4B</strong>) = 16Bytes</li>
+<li>B + C - A = 16 + 16 - 8 = 24 <strong>(? 存疑 !)</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="C-对象内存模型-了解能说得上来即可"><a href="#C-对象内存模型-了解能说得上来即可" class="headerlink" title="C++对象内存模型(了解能说得上来即可)"></a>C++对象内存模型(了解能说得上来即可)</h3><p>这篇博客讲述的比较详细: <a href="https://www.cnblogs.com/QG-whz/p/4909359.html" target="_blank" rel="noopener">https://www.cnblogs.com/QG-whz/p/4909359.html</a><br>简要概括如下:</p>
+<ul>
+<li><p>单一的一般继承<br>派生类: 虚指针指向自己的虚表,虚表中记录自己的虚函数(如果没有重写则其函数地址仍为基类的虚函数地址).<br>如果自己还有的基类所没有的虚函数,则会在自己的虚表中加以扩充</p>
+</li>
+<li><p>多重继承<br>派生类: 内含多个基类部分,且每个基类部分各有一个虚函数表指针(vptr), 其各自复制来自原基类的一张新虚函数表. 若派生类有所有基类都不存在的新的虚函数,直接在第一个虚函数表中扩充.</p>
+</li>
+<li><p>钻石形重复继承—没有使用虚继承<br>派生类: 同多重继承的方式,但是因为其基类的共同基类在这里会复制两份,因此如果直接些基-基类将会有二义性</p>
+</li>
+<li><p>钻石形多重虚拟继承,下面给出gcc的结果<br>派生类将两个父类共同的部分单独剥离出来,生成一个独立的部分,并同样的有虚函数表和虚函数表指针,消除了二义性.</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/30/2018实习面试总结/" rel="next" title="2018实习面试总结">
+                <i class="fa fa-chevron-left"></i> 2018实习面试总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/30/C++11新特性梳理/" rel="prev" title="C++11新特性梳理">
+                C++11新特性梳理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/img/avatar.jpg" alt="杭河苇 | Jayson">
+            
+              <p class="site-author-name" itemprop="name">杭河苇 | Jayson</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:loskyer@gamil.com" target="_blank" title="E-mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础问题"><span class="nav-number">1.</span> <span class="nav-text">基础问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？"><span class="nav-number">1.1.</span> <span class="nav-text">1. 多态是什么（语义上什么意思，语法上怎么实现）？虚函数是什么？虚函数底层怎么实现的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-指针和引用的区别"><span class="nav-number">1.2.</span> <span class="nav-text">2. 指针和引用的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-new和malloc的区别"><span class="nav-number">1.3.</span> <span class="nav-text">3.new和malloc的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-vector实现原理，list-map-set，unordered-map-unordered-set底层的数据结构？"><span class="nav-number">1.4.</span> <span class="nav-text">4.vector实现原理，list, map, set，unordered_map unordered_set底层的数据结构？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-static有哪些作用？-C语言本来就有的，c-中有的"><span class="nav-number">1.5.</span> <span class="nav-text">5.static有哪些作用？(C语言本来就有的，c++中有的)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-const关键字有哪些作用"><span class="nav-number">1.6.</span> <span class="nav-text">6.const关键字有哪些作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#衍生问题"><span class="nav-number">1.6.1.</span> <span class="nav-text">衍生问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-智能指针的原理是什么？-C-11有哪些智能指针？-下文对智能指针有更详细的分析"><span class="nav-number">1.7.</span> <span class="nav-text">7.智能指针的原理是什么？ C++11有哪些智能指针？(下文对智能指针有更详细的分析)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-C-几种强制类型转换"><span class="nav-number">1.8.</span> <span class="nav-text">8.C++几种强制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-栈上的对象与堆上的对象有什么不同"><span class="nav-number">1.9.</span> <span class="nav-text">9.栈上的对象与堆上的对象有什么不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-const和define有什么不同"><span class="nav-number">1.10.</span> <span class="nav-text">10.const和define有什么不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-了解C-11的哪些新特性？"><span class="nav-number">1.11.</span> <span class="nav-text">11.了解C++11的哪些新特性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-C-写一个线程安全的单例模式"><span class="nav-number">1.12.</span> <span class="nav-text">12.C++写一个线程安全的单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-成员函数可以同时被static和const修饰吗？"><span class="nav-number">1.13.</span> <span class="nav-text">13.成员函数可以同时被static和const修饰吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶问题"><span class="nav-number">2.</span> <span class="nav-text">进阶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#智能指针"><span class="nav-number">2.1.</span> <span class="nav-text">智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请讲一下智能指针原理，并实现一个简单的智能指针"><span class="nav-number">2.1.1.</span> <span class="nav-text">请讲一下智能指针原理，并实现一个简单的智能指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Counter类实现"><span class="nav-number">2.1.2.</span> <span class="nav-text">Counter类实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SmartPointPro类-未考虑线程安全"><span class="nav-number">2.1.3.</span> <span class="nav-text">SmartPointPro类 未考虑线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么样获取智能指针所包装的指针呢？"><span class="nav-number">2.1.4.</span> <span class="nav-text">怎么样获取智能指针所包装的指针呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STL中的四种智能指针"><span class="nav-number">2.1.5.</span> <span class="nav-text">STL中的四种智能指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#struct对齐问题"><span class="nav-number">2.2.</span> <span class="nav-text">struct对齐问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对齐规则"><span class="nav-number">2.2.1.</span> <span class="nav-text">对齐规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-虚函数相关问题"><span class="nav-number">2.3.</span> <span class="nav-text">C++虚函数相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-中为什么要使用虚函数"><span class="nav-number">2.3.1.</span> <span class="nav-text">C++中为什么要使用虚函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目1-请说明C-虚函数的底层实现机制"><span class="nav-number">2.3.2.</span> <span class="nav-text">题目1: 请说明C++虚函数的底层实现机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目2-为什么需要虚析构函数"><span class="nav-number">2.3.3.</span> <span class="nav-text">题目2:为什么需要虚析构函数?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目3-析构函数一定是虚函数吗"><span class="nav-number">2.3.4.</span> <span class="nav-text">题目3:析构函数一定是虚函数吗?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目4-访问虚函数和普通函数哪个快"><span class="nav-number">2.3.5.</span> <span class="nav-text">题目4:访问虚函数和普通函数哪个快?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目5-内联函数-构造函数-静态成员函数可以是虚函数吗"><span class="nav-number">2.3.6.</span> <span class="nav-text">题目5:内联函数/构造函数/静态成员函数可以是虚函数吗</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目6-构造函数中可以调用虚函数吗"><span class="nav-number">2.3.7.</span> <span class="nav-text">题目6: 构造函数中可以调用虚函数吗?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-虚继承相关问题"><span class="nav-number">2.4.</span> <span class="nav-text">C++虚继承相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-虚继承中的sizeof"><span class="nav-number">2.4.1.</span> <span class="nav-text">C++虚继承中的sizeof</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-对象内存模型-了解能说得上来即可"><span class="nav-number">2.5.</span> <span class="nav-text">C++对象内存模型(了解能说得上来即可)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杭河苇 | Jayson</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
