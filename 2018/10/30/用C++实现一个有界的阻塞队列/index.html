@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Frees0u1">
 <meta property="og:description" content="对于一个无界的阻塞队列而言，其实现非常简单，即用一个锁（锁队列）+ 一个条件变量（判空）即可。那么对于一个有界阻塞队列而言，其队列的容量有上限，其实只要再加一个条件变量用来判断是否满即可。综上，我们需要  mutex: 保护队列的读写操作 notEmptyCV: 条件变量，在take时wait, 在put之后notify notFullCV: 条件变量， 在put时wait, 在take之后not">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-30T12:22:04.714Z">
+<meta property="og:updated_time" content="2018-10-30T12:32:20.002Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用C++实现一个有界的阻塞队列">
 <meta name="twitter:description" content="对于一个无界的阻塞队列而言，其实现非常简单，即用一个锁（锁队列）+ 一个条件变量（判空）即可。那么对于一个有界阻塞队列而言，其队列的容量有上限，其实只要再加一个条件变量用来判断是否满即可。综上，我们需要  mutex: 保护队列的读写操作 notEmptyCV: 条件变量，在take时wait, 在put之后notify notFullCV: 条件变量， 在put时wait, 在take之后not">
@@ -201,22 +201,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+        <li class="menu-item menu-item-油腻校招">
+          <a href="/categories/油腻校招" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
-            分类
+            油腻校招
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+        <li class="menu-item menu-item-修炼之道">
+          <a href="/categories/修炼之道" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
-            标签
+            修炼之道
           </a>
         </li>
       
@@ -227,6 +227,16 @@
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-各类标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            各类标签
           </a>
         </li>
       
@@ -493,7 +503,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

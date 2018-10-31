@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C++,面试,">
+  <meta name="keywords" content="面试,C++,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="在面试中，经常被问的一个问题就是：你了解C++11哪些新特性？一般而言，回答以下四个方面就够了：  “语法糖”：nullptr, auto自动类型推导，范围for循环，初始化列表, lambda表达式等 右值引用和移动语义 智能指针 C++11多线程编程：thread库及其相配套的同步原语mutex, lock_guard, condition_variable, 以及异步std::furture">
-<meta name="keywords" content="C++,面试">
+<meta name="keywords" content="面试,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++11新特性梳理">
 <meta property="og:url" content="http://yoursite.com/2018/10/30/C++11新特性梳理/index.html">
 <meta property="og:site_name" content="Frees0u1">
 <meta property="og:description" content="在面试中，经常被问的一个问题就是：你了解C++11哪些新特性？一般而言，回答以下四个方面就够了：  “语法糖”：nullptr, auto自动类型推导，范围for循环，初始化列表, lambda表达式等 右值引用和移动语义 智能指针 C++11多线程编程：thread库及其相配套的同步原语mutex, lock_guard, condition_variable, 以及异步std::furture">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-30T12:17:29.740Z">
+<meta property="og:updated_time" content="2018-10-30T13:00:14.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++11新特性梳理">
 <meta name="twitter:description" content="在面试中，经常被问的一个问题就是：你了解C++11哪些新特性？一般而言，回答以下四个方面就够了：  “语法糖”：nullptr, auto自动类型推导，范围for循环，初始化列表, lambda表达式等 右值引用和移动语义 智能指针 C++11多线程编程：thread库及其相配套的同步原语mutex, lock_guard, condition_variable, 以及异步std::furture">
@@ -201,22 +201,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+        <li class="menu-item menu-item-油腻校招">
+          <a href="/categories/油腻校招" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
-            分类
+            油腻校招
           </a>
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+        <li class="menu-item menu-item-修炼之道">
+          <a href="/categories/修炼之道" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
             
-            标签
+            修炼之道
           </a>
         </li>
       
@@ -227,6 +227,16 @@
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-各类标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            各类标签
           </a>
         </li>
       
@@ -359,7 +369,7 @@
 <li>智能指针</li>
 <li>C++11多线程编程：<code>thread</code>库及其相配套的同步原语<code>mutex</code>, <code>lock_guard</code>, <code>condition_variable</code>, 以及异步<code>std::furture</code></li>
 </ul>
-<h2 id="1-“语法糖”"><a href="#1-“语法糖”" class="headerlink" title="1. “语法糖”"></a>1. “语法糖”</h2><p>这部分内容一般是一句话带过的，但是有时候也需要说一些，比较重重要的就是auto和lambda。</p>
+<h2 id="“语法糖”"><a href="#“语法糖”" class="headerlink" title="“语法糖”"></a>“语法糖”</h2><p>这部分内容一般是一句话带过的，但是有时候也需要说一些，比较重重要的就是auto和lambda。</p>
 <h3 id="auto自动类型推导"><a href="#auto自动类型推导" class="headerlink" title="auto自动类型推导"></a>auto自动类型推导</h3><p>C语言也有auto关键字，但是其含义只是与static变量做一个区分，一个变量不指定的话默认就是auto。。因为很少有人去用这个东西，所以在C++11中就把原有的auto功能给废弃掉了，而变成了现在的自动类型推导关键字。用法很简单不多赘述，比如写一个auto a = 3, 编译器就会自动推导a的类型为int. 在遍历某些STL容器的时候，不用去声明那些迭代器的类型，也不用去使用typedef就能很简洁的实现遍历了。<br>auto的使用有以下两点必须注意：</p>
 <ul>
 <li>auto声明的变量必须要初始化，否则编译器不能判断变量的类型。</li>
@@ -377,7 +387,7 @@
 <li><strong>[]</strong> 不捕获，大部分情况下不捕获就可以了</li>
 </ul>
 <p><strong>一般使用场景</strong>：sort等自定义比较函数、用thread起简单的线程。</p>
-<h2 id="2-右值引用与移动语义"><a href="#2-右值引用与移动语义" class="headerlink" title="2. 右值引用与移动语义"></a>2. 右值引用与移动语义</h2><p>右值引用是C++11新特性，它实现了转移语义和完美转发，主要目的有两个方面</p>
+<h2 id="右值引用与移动语义"><a href="#右值引用与移动语义" class="headerlink" title="右值引用与移动语义"></a>右值引用与移动语义</h2><p>右值引用是C++11新特性，它实现了转移语义和完美转发，主要目的有两个方面</p>
 <ul>
 <li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率</li>
 <li>能够更简洁明确地定义泛型函数<br>C++中的变量要么是左值、要么是右值。通俗的左值定义指的是非临时变量，而左值指的是临时对象。左值引用的符号是一个&amp;，右值引用是两个&amp;&amp;</li>
@@ -395,7 +405,7 @@
 <li>左值/右值</li>
 <li>const / non-const<br>完美转发就是在参数传递过程中，所有这些属性和参数值都不能改变。在泛型函数中，这样的需求十分普遍。<br>为了保证这些属性，泛型函数需要重载各种版本，左值右值不同版本，还要分别对应不同的const关系，但是如果只定义一个右值引用参数的函数版本，这个问题就迎刃而解了，原因在于：<br><strong>C++11对T&amp;&amp;的类型推导： 右值实参为右值引用，左值实参仍然为左值</strong></li>
 </ul>
-<h3 id="3-智能指针"><a href="#3-智能指针" class="headerlink" title="3.智能指针"></a>3.智能指针</h3><p>核心思想：为防止内存泄露等问题，用一个对象来管理野指针，使得在该对象构造时获得该指针管理权，析构时自动释放(delete).<br>基于此思想C++98提供了第一个智能指针：<code>auto_ptr</code><br><code>auto_ptr</code>基于所有权转移的语义，即将一个就的auto_ptr赋值给另外一个新的auto_ptr时，旧的那一个就不再拥有该指针的控制权（内部指针被赋值为null),那么这就会带来一些根本性的破绽：</p>
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><p>核心思想：为防止内存泄露等问题，用一个对象来管理野指针，使得在该对象构造时获得该指针管理权，析构时自动释放(delete).<br>基于此思想C++98提供了第一个智能指针：<code>auto_ptr</code><br><code>auto_ptr</code>基于所有权转移的语义，即将一个就的auto_ptr赋值给另外一个新的auto_ptr时，旧的那一个就不再拥有该指针的控制权（内部指针被赋值为null),那么这就会带来一些根本性的破绽：</p>
 <ul>
 <li>函数参数传递时，会有隐式的赋值，那么原来的auto_ptr自动失去了控制权</li>
 <li>自我赋值时，会将自己内部指针赋值为null，造成bug</li>
@@ -470,9 +480,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C++</a>
-          
             <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
           
         </div>
       
@@ -598,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -641,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-“语法糖”"><span class="nav-number">1.</span> <span class="nav-text">1. “语法糖”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#auto自动类型推导"><span class="nav-number">1.1.</span> <span class="nav-text">auto自动类型推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda表达式"><span class="nav-number">1.2.</span> <span class="nav-text">lambda表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-右值引用与移动语义"><span class="nav-number">2.</span> <span class="nav-text">2. 右值引用与移动语义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标准库函数std-move-—-将左值变成一个右值"><span class="nav-number">2.0.1.</span> <span class="nav-text">标准库函数std::move  —- 将左值变成一个右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完美转发-Perfect-Forwarding"><span class="nav-number">2.0.2.</span> <span class="nav-text">完美转发 Perfect Forwarding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-智能指针"><span class="nav-number">2.1.</span> <span class="nav-text">3.智能指针</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11多线程编程"><span class="nav-number">3.</span> <span class="nav-text">C++11多线程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程-include-lt-thread-gt"><span class="nav-number">3.1.</span> <span class="nav-text">线程 #include &lt;thread&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-thread的其他成员函数"><span class="nav-number">3.2.</span> <span class="nav-text">std::thread的其他成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程管理函数"><span class="nav-number">3.3.</span> <span class="nav-text">线程管理函数</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#“语法糖”"><span class="nav-number">1.</span> <span class="nav-text">“语法糖”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#auto自动类型推导"><span class="nav-number">1.1.</span> <span class="nav-text">auto自动类型推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda表达式"><span class="nav-number">1.2.</span> <span class="nav-text">lambda表达式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#右值引用与移动语义"><span class="nav-number">2.</span> <span class="nav-text">右值引用与移动语义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标准库函数std-move-—-将左值变成一个右值"><span class="nav-number">2.0.1.</span> <span class="nav-text">标准库函数std::move  —- 将左值变成一个右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完美转发-Perfect-Forwarding"><span class="nav-number">2.0.2.</span> <span class="nav-text">完美转发 Perfect Forwarding</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#智能指针"><span class="nav-number">3.</span> <span class="nav-text">智能指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-11多线程编程"><span class="nav-number">4.</span> <span class="nav-text">C++11多线程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程-include-lt-thread-gt"><span class="nav-number">4.1.</span> <span class="nav-text">线程 #include &lt;thread&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-thread的其他成员函数"><span class="nav-number">4.2.</span> <span class="nav-text">std::thread的其他成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程管理函数"><span class="nav-number">4.3.</span> <span class="nav-text">线程管理函数</span></a></li></ol></li></div>
             
 
           </div>
